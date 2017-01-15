@@ -1,0 +1,7 @@
+
+/.vs/
+/.idea/
+/src/LightAnchor.Extensions.RunWeb/bin/
+/src/LightAnchor.Extensions.RunWeb/obj/
+*.user
+/src/LightAnchor.Extensions.RunWeb/project.lock.json
