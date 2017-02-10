@@ -2,7 +2,7 @@
   "name": "LightAnchor.Extensions.RunWeb",
   "description": "Dotnet CLI extension for running a website with a custom port number and opening the browser on run.",
   "authors": [ "josh-bradley" ],
-  "version": "1.0.1-*",
+  "version": "1.0.2-*",
   "buildOptions": {
     "debugType": "portable",
     "emitEntryPoint": true,
