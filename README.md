@@ -7,7 +7,7 @@ Extension for the dotnet CLI for specifying a port number and automatically open
 Include it in the tools section of your project.json
 
 `"tools": {
-     "LightAnchor.Extensions.RunWeb":"1.0.1"
+     "LightAnchor.Extensions.RunWeb":"1.0.2"
 }`
 
 ##Usage
