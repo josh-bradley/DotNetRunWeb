@@ -20,6 +20,10 @@ Or if you are using .csproj add this to your .csproj
 </ItemGroup>
 ```
 
+And then
+
+`dotnet restore`
+
 ##Usage
 
 Use the web command with the dotnet CLI
