@@ -10,15 +10,25 @@ Include it in the tools section of your project.json
      "LightAnchor.Extensions.RunWeb":"1.0.*"
 }`
 
+Or if you are using .csproj add this to your .csproj 
+
+```
+<ItemGroup>
+    <DotNetCliToolReference Include="LightAnchor.Extensions.RunWeb">
+      <Version>1.0.*</Version>
+    </DotNetCliToolReference>
+</ItemGroup>
+```
+
 ##Usage
 
-Use the runw command with the dotnet CLI
+Use the web command with the dotnet CLI
 
 * `-o` or `--open` - Open browser once website is running.
 * `-r` or `--port` - Specify the port number.
 
-`dotnet runw -o --port 9999`
+`dotnet web -o --port 9999`
 
-Include any option supported by dotnet runw
+Include any option supported by dotnet run
 
-`dotnet runw -o --port 9999 -c Release`
+`dotnet web -o --port 9999 -c Release`
