@@ -6,7 +6,16 @@ namespace LightAnchor.Extensions.RunWeb
 {
     public class Browser
     {
-        public static void StartBrowser(string uri)
+        public static void CommandLaunch(string uri, string command)
+        {
+            var process = new Process();
+            process.StartInfo.FileName = command;
+            process.StartInfo.UseShellExecute = true;
+            process.StartInfo.Arguments = uri;
+            process.Start();
+        }
+
+        public static void WindowsPlatformLaunch(string uri)
         {
             var defaultBrowserProgId = GetDefaultBrowserProgId();
 

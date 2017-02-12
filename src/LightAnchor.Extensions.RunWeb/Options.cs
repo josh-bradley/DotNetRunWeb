@@ -8,12 +8,30 @@ namespace LightAnchor.Extensions.RunWeb
     {
         string[] OpenBrowserOptionAlias = { "-o", "--open" };
         string[] PortNumberOptionAlias = { "-r", "--port" };
+        string[] HelpOptionsAlias = { "-h", "--help" };
 
         public Options(string[] args)
         {
             ShouldOpenBrowser = FindOptionIndex(args, OpenBrowserOptionAlias) >= 0;
             SetPortNumberFromOption(args);
             FindUnknownOptions(args);
+            Help = FindOptionIndex(args, HelpOptionsAlias) >= 0;
+        }
+
+        public List<string> GetHelpTextLines()
+        {
+            var help = new List<string> {
+                ".Net Run Web Command",
+                " ",
+                "Usage: dotnet runw [options]",
+                " ",
+                "Options:",
+                "-h|--help\tShow help information",
+                "-o|--open\tOpen in default browser",
+                "-r|--port\tPort number to use when running the app",
+                "As well as any dotnet run options"
+            };
+            return help;
         }
 
         private void SetPortNumberFromOption(string[] args)
@@ -27,9 +45,12 @@ namespace LightAnchor.Extensions.RunWeb
                 else
                 {
                     int portNumber;
-                    if (Int32.TryParse(args[indexPortNumberArg + 1], out portNumber))
+                    if (Int32.TryParse(args[indexPortNumberArg + 1], out portNumber) 
+                        && portNumber < 65535
+                        && portNumber != 0)
                     {
-                        PortNumber = portNumber.ToString();
+                        PortNumber = Math.Abs(portNumber).ToString();
+                        PortNumberProvided = true;
                     }
                     else
                         OptionErrors.Add("Invalid port number format");
@@ -64,9 +85,13 @@ namespace LightAnchor.Extensions.RunWeb
             return -1;
         }
 
+        public bool Help { get; private set; }
+
         public bool ShouldOpenBrowser { get; private set; }
 
-        public string PortNumber { get; private set; } = "5001";
+        public string PortNumber { get; private set; }
+
+        public bool PortNumberProvided { get; private set; } = false;
 
         public List<string> UnknownArgs { get; set; } = new List<string>();
 

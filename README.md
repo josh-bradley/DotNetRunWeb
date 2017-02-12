@@ -7,7 +7,7 @@ Extension for the dotnet CLI for specifying a port number and automatically open
 Include it in the tools section of your project.json
 
 `"tools": {
-     "LightAnchor.Extensions.RunWeb":"1.0.2"
+     "LightAnchor.Extensions.RunWeb":"1.0.*"
 }`
 
 ##Usage
@@ -18,3 +18,7 @@ Use the runw command with the dotnet CLI
 * `-r` or `--port` - Specify the port number.
 
 `dotnet runw -o --port 9999`
+
+Include any option supported by dotnet runw
+
+`dotnet runw -o --port 9999 -c Release`
