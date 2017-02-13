@@ -23,7 +23,7 @@ namespace LightAnchor.Extensions.RunWeb
             var help = new List<string> {
                 ".Net Run Web Command",
                 " ",
-                "Usage: dotnet runw [options]",
+                "Usage: dotnet web [options]",
                 " ",
                 "Options:",
                 "-h|--help\tShow help information",

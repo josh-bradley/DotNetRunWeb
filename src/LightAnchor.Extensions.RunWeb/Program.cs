@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace LightAnchor.Extensions.RunWeb
@@ -9,8 +10,9 @@ namespace LightAnchor.Extensions.RunWeb
     { 
         const string DefaultURIEnvironmentVariable = "ASPNETCORE_URLS";
         const string AspDotNetCoreDefaultPort = "5000";
+        const string NowListeningOn = "Now listening on:";
         public static void Main(string[] args)
-        {
+        {                        
             var options = new Options(args);
             if(options.Help) 
             {
@@ -22,12 +24,13 @@ namespace LightAnchor.Extensions.RunWeb
             var uri = options.PortNumberProvided ? BuildUrl(options.PortNumber) : null;
             
             var process = StartDotNetRun(options.UnknownArgs, uri);
-            var actualUri = GetActualUri(process);
+            var actualUri = string.Empty;
             var reader = process.StandardOutput;
             while (!reader.EndOfStream)
             {
                 var line = reader.ReadLine();
-                if (IsWebServerOnlineMessage(line) && options.ShouldOpenBrowser)
+                actualUri = GetUriFromConsoleLine(line);
+                if (actualUri.Length > 0 && options.ShouldOpenBrowser)
                 {
                     var launchBrowser = GetLaunchBrowserAction(); 
                     if(launchBrowser == null)
@@ -74,10 +77,12 @@ namespace LightAnchor.Extensions.RunWeb
 
         private static string BuildUrl(string portNumber) => $"http://localhost:{portNumber}";
 
-        private static bool IsWebServerOnlineMessage(string line) => line.Contains("Now listening on");
+        private static string GetUriFromConsoleLine(string line) 
+        {
+            if(line.Contains(NowListeningOn))
+                return line.Substring(line.IndexOf(NowListeningOn) + NowListeningOn.Length + 1);
 
-        private static string GetActualUri(Process process) => process.StartInfo.Environment.ContainsKey(DefaultURIEnvironmentVariable) ?
-                                                                process.StartInfo.Environment[DefaultURIEnvironmentVariable] :
-                                                                BuildUrl(AspDotNetCoreDefaultPort);
+            return string.Empty;
+        }
     }
 }
