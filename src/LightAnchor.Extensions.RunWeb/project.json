@@ -13,8 +13,7 @@
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.*"
-    },
-    "Microsoft.Win32.Registry": "4.3.0"
+    }
   },
 
   "frameworks": {

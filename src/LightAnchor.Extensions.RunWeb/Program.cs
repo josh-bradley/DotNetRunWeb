@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
-using System.Runtime.InteropServices;
 
 namespace LightAnchor.Extensions.RunWeb
 {
     public class Program
     { 
         const string DefaultURIEnvironmentVariable = "ASPNETCORE_URLS";
-        const string AspDotNetCoreDefaultPort = "5000";
         const string NowListeningOn = "Now listening on:";
         public static void Main(string[] args)
-        {                        
+        {
+            Console.WriteLine("take it easy big fella");
             var options = new Options(args);
             if(options.Help) 
             {
@@ -32,11 +30,11 @@ namespace LightAnchor.Extensions.RunWeb
                 actualUri = GetUriFromConsoleLine(line);
                 if (actualUri.Length > 0 && options.ShouldOpenBrowser)
                 {
-                    var launchBrowser = GetLaunchBrowserAction(); 
+                    var launchBrowser = BrowserLauncher.CreateForPlatform();
                     if(launchBrowser == null)
                         Console.Out.WriteLine("Unable to detect platform, cannot launch browser.");
                     else
-                        launchBrowser(actualUri);
+                        launchBrowser.Launch(actualUri);
                 }
                 Console.Out.WriteLine(line);
             }
@@ -60,20 +58,7 @@ namespace LightAnchor.Extensions.RunWeb
             process.Start();
 
             return process;
-        }
-
-        private static Action<string> GetLaunchBrowserAction()
-        {
-            Action<string> openCommand = null;
-            if(System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-                openCommand = (uri) => Browser.WindowsPlatformLaunch(uri);
-            else if(System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-                openCommand = (uri) => Browser.CommandLaunch(uri, "xdg-open");
-            else if(System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                openCommand = (uri) => Browser.CommandLaunch(uri, "open");
-
-            return openCommand;
-        }
+        }        
 
         private static string BuildUrl(string portNumber) => $"http://localhost:{portNumber}";
 
