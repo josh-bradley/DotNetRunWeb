@@ -1,8 +1,8 @@
-#DotNetRunWeb
+# DotNetRunWeb
 
 Extension for the dotnet CLI for specifying a port number and automatically opening a browser when running ASP.Net Core Websites.
 
-##Installation
+## Installation
 
 Include it in the tools section of your project.json
 
@@ -24,7 +24,14 @@ And then
 
 `dotnet restore`
 
-##Usage
+## Global Installation
+
+To install for use across your machine copy and unzip the contents from the folder under /GlobalInstall
+for your OS/Framework into a folder in PATH. 
+
+For Linux/Mac you will need to set the execute bit on the dotnet-web file e.g. `chmod +x dotnet-web`.
+
+## Usage
 
 Use the web command with the dotnet CLI
 
