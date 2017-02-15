@@ -10,7 +10,6 @@ namespace LightAnchor.Extensions.RunWeb
         const string NowListeningOn = "Now listening on:";
         public static void Main(string[] args)
         {
-            Console.WriteLine("take it easy big fella");
             var options = new Options(args);
             if(options.Help) 
             {
