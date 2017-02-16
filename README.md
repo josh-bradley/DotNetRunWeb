@@ -26,7 +26,7 @@ And then
 
 ## Global Installation
 
-To install for use across your machine copy and unzip the contents from the folder under /GlobalInstall
+To install for use across your machine copy the contents from the folder under /GlobalInstall
 for your OS/Framework into a folder in PATH. 
 
 For Linux/Mac you will need to set the execute bit on the dotnet-web file e.g. `chmod +x dotnet-web`.

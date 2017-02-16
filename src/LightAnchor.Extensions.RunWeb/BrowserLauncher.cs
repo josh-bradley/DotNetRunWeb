@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
+#if !NET461
 using System.Runtime.InteropServices;
+#endif
 
 namespace LightAnchor.Extensions.RunWeb
 {
@@ -19,13 +21,16 @@ namespace LightAnchor.Extensions.RunWeb
         public static BrowserLauncher CreateForPlatform()
         {
             BrowserLauncher browserLauncher = null;
+#if NET461
+            browserLauncher = new BrowserLauncher("CMD.exe", "/C start {0}", false);
+#else
             if(RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 browserLauncher = new BrowserLauncher("CMD.exe", "/C start {0}", false);
             else if(RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
                 browserLauncher = new BrowserLauncher("xdg-open");
             else if(RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
                 browserLauncher = new BrowserLauncher("open");
-
+#endif
             return browserLauncher;
         }
 
