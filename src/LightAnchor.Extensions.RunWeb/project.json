@@ -32,5 +32,9 @@
       }
     },
     "net461": {}
+  },
+
+  "scripts": {
+    "postpublish": "publish.cmd"
   }
 }
